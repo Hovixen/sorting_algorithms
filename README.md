@@ -36,5 +36,6 @@ All of the following programs are written in C:
 | `106-O` | File that stores the best, average and worst case of the time complexity of the **Bitonic sort** algorithm |
 
 # Authors
-[Nelson Erijo](https://github.com/Hovixen)
-[Eric Kinger](stephen.erich243@gmail.com)
+* [Nelson Erijo](https://github.com/Hovixen)
+
+* [Eric Kinger](https://stephen.erich243@gmail.com)
