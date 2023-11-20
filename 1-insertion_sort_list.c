@@ -34,8 +34,9 @@ void insertion_sort_list(listint_t **list)
 	listint_t *s_list;/* sorted part of list */
 	listint_t *u_list; /*unsorted part of list */
 
-	if (*list == NULL || (*list)->next == NULL || *list == NULL)
+	if (*list == NULL || (*list)->next == NULL)
 		return;
+
 	u_list = (*list)->next;
 	while (u_list)
 	{
