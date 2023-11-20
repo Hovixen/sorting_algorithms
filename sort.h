@@ -22,12 +22,19 @@ typedef struct listint_s
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 listint_t *create_listint(const int *array, size_t size);
+
 /*----sorting functions----*/
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
+void quick_sort(int *array, size_t size);
+
 
 /*----helper swaps functions-----*/
 void swap_nodes(listint_t **list, listint_t *n1, listint_t *n2);
+void swap_elements(int *a, int *b);
+int get_pivot(int *array, int low, int high);
+void sort_array(int *array, int low, int high);
+
 
 #endif
