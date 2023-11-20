@@ -29,23 +29,20 @@ void swap_elements(int *array, ssize_t a, ssize_t b)
 
 int pertition(int *array, ssize_t first, ssize_t last, size_t size)
 {
-	int pivot = array[last], flag;
+	int pivot = array[last];
 	ssize_t curr = first, i;
 
 	for (i = first; i < last; i++)
 	{
-		flag = 0;
 		if (array[i] < pivot)
 		{
 			if (array[curr] != array[i])
 			{
 				swap_elements(array, curr, i);
-				flag = 1;
 				print_array(array, size);
 			}
 			curr++;
 		}
-		if (flag == 0) break;
 	}
 	if (array[curr] != array[last])
 	{
