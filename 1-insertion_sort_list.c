@@ -2,6 +2,7 @@
 
 /**
  * swap_nodes - function swaps the node of in doubly linked list
+ * @list: pointer to the pointer to list
  * @n1: pointer to the first node
  * @n2: pointer to the second node
  * Return: returns void
