@@ -1,52 +1,53 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - Sorts a doubly linkedlist
- * @list: doubly linkedles list
+ * swap_nodes - function swaps the node of in doubly linked list
+ * @list: pointer to the pointer to list
+ * @n1: pointer to the first node
+ * @n2: pointer to the second node
+ * Return: returns void
+ */
+
+void swap_nodes(listint_t **list, listint_t *n1, listint_t *n2)
+{
+	if (n1->prev)
+		n1->prev->next = n2;
+	else
+		*list = n2;
+	if (n2->next)
+		n2->next->prev = n1;
+
+	n2->prev = n1->prev;
+	n1->next = n2->next;
+
+	n1->prev = n2;
+	n2->next = n1;
+}
+
+/**
+ * insertion_sort_list - function sorts list using insertion sort algorithm
+ * @list: pointer of list pointer
+ * Return: returns void
  */
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *node;
+	listint_t *s_list;/* sorted part of list */
+	listint_t *u_list; /*unsorted part of list */
 
-	if (list == NULL || (*list)->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
-	node = (*list)->next;
-
-	while (node)
+	u_list = (*list)->next;
+	while (u_list && u_list->prev)
 	{
-		while ((node->prev) && (node->prev->n > node->n))
+		s_list = u_list->prev;
+		while (s_list && s_list->n > u_list->n)
 		{
-			node = swap(node, list);
+			swap_nodes(list, s_list, u_list);
 			print_list(*list);
+			s_list = u_list->prev;
 		}
-		node = node->next;
+		u_list = u_list->next;
 	}
-}
-
-/**
- * swap - swap a node with its previous node
- * @node: node to be swapped
- * @list: pointer to a pointer to the head of the list
- * Return: pointer to the upudated node
- */
-
-listint_t *swap(listint_t *node, listint_t **list)
-{
-	listint_t *temp = node->prev, *current = node;
-
-	temp->next = current->next;
-	if (current->next)
-		current->next->prev = temp;
-	current->next = temp;
-	current->prev = temp->prev;
-	temp->prev = current;
-	if (current->prev)
-		current->prev->next = current;
-	else
-	{
-		*list = current;
-	}
-	return (current);
 }
