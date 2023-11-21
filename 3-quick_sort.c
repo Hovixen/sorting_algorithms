@@ -1,88 +1,65 @@
-#include "sort.h"
+#include <stdio.h>
 
-/**
- * swap_elements - function swaps two elements in an arrray
- * @array: array
- * @a: first elemen
- * @b: second element
- * Return: returns void
- */
-
-void swap_elements(int *array, ssize_t a, ssize_t b)
-{
-	int temp;
-
-	temp = array[a];
-	array[a] = array[b];
-	array[b] = temp;
+// Function to swap two elements in the array and print the array
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-/**
- * pertition - pertition function
- * @array: array of elements
- * @first: first element
- * @last: last element
- * @size: size of the array
- *
- * Return: the current index of the pivot
- */
-
-int pertition(int *array, ssize_t first, ssize_t last, size_t size)
-{
-	int pivot = array[last];
-	ssize_t curr = first, i;
-
-	for (i = first; i < last; i++)
-	{
-		if (array[i] < pivot)
-		{
-			if (array[curr] != array[i])
-			{
-				swap_elements(array, curr, i);
-				print_array(array, size);
-			}
-			curr++;
-		}
-	}
-	if (array[curr] != array[last])
-	{
-		swap_elements(array, curr, last);
-		print_array(array, size);
-	}
-	return (curr);
+// Function to print the elements of the array
+void print_array(int *array, size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
 }
 
-/**
- * quickSort - sorts an array of integers using the
- * quick_sort algorithm
- * @array: array of elements
- * @first: first element
- * @last: last element
- * @size: size of the array
- */
+// Lomuto partition scheme for Quick Sort
+int partition(int *array, int low, int high) {
+    int pivot = array[high];
+    int i = low - 1;
 
-void quickSort(int *array, ssize_t first, ssize_t last, size_t size)
-{
-	ssize_t position = 0;
+    for (int j = low; j <= high - 1; j++) {
+        if (array[j] <= pivot) {
+            i++;
+            swap(&array[i], &array[j]);
+            print_array(array, high + 1); // Print the array after each swap
+        }
+    }
 
-	if (first < last)
-	{
-		position = pertition(array, first, last, size);
-		quickSort(array, first, position - 1, size);
-		quickSort(array, position + 1, last, size);
-	}
+    swap(&array[i + 1], &array[high]);
+    print_array(array, high + 1); // Print the array after placing the pivot
+
+    return i + 1;
 }
 
-/**
- * quick_sort - sorts an array of integers
- * @array: array of elements
- * @size: soze of the array
- */
+// Quick Sort function using Lomuto partition scheme
+void quick_sort(int *array, int low, int high) {
+    if (low < high) {
+        int pi = partition(array, low, high);
+        quick_sort(array, low, pi - 1);
+        quick_sort(array, pi + 1, high);
+    }
+}
 
-void quick_sort(int *array, size_t size)
-{
-	if (array == NULL || size < 2)
-		return;
-	quickSort(array, 0, size - 1, size);
+// Wrapper function for quick_sort
+void sort_array(int *array, size_t size) {
+    quick_sort(array, 0, size - 1);
+}
+
+int main() {
+    int array[] = {12, 4, 5, 6, 7, 3, 1, 15};
+    size_t size = sizeof(array) / sizeof(array[0]);
+
+    printf("Original array: ");
+    print_array(array, size);
+
+    sort_array(array, size);
+
+    printf("\nSorted array: ");
+    print_array(array, size);
+
+    return 0;
 }
 
