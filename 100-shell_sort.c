@@ -30,7 +30,7 @@ void shell_swap(int *array, int item1, int item2)
 
 void shell_sort(int *array, size_t size)
 {
-	size_t i, j, gap = 1;
+	size_t i = 0, j, gap = 1;
 
 	if (array == NULL || size < 2)
 		return;
