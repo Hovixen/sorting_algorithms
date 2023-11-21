@@ -1,82 +1,80 @@
-#include "sort.h"
+#include <stdio.h>
 
-/**
- * swap_elements - function swaps two elements in an arrray
- * @a: first element
- * @b: second element
- * Return: returns void
- */
+// Function to swap two elements in the array and print the array after swap
+void swap(int *array, int index1, int index2) {
+    int temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
 
-void swap_elements(int *a, int *b)
-{
-	int temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
+    // Print the array after each swap
+    printf("After swapping indices %d and %d: ", index1, index2);
+    for (int k = 0; k < 8; k++) {
+        printf("%d ", array[k]);
+    }
+    printf("\n");
 }
 
-/**
- * get_pivot - function gets the pivot of an array
- *
- * Description: this implements the Lomuto partition for choosing the
- * last element of the array as pivot
- *
- * @array: pointer to the given array
- * @low: index of first element
- * @high: index of last element
- * Return: returns the index of the pivot element
- */
-
-int get_pivot(int *array, int low, int high)
-{
-	int pivot_elem, n, m;
-
-	pivot_elem = array[high]; /* pivot as last element */
-	n = low - 1;
-
-	for (m = low; m <= high - 1; m++)
-	{
-		if (array[m] <= pivot_elem)
-		{
-			n++;
-			swap_elements(&array[n], &array[m]);
-			print_array(array, high - low + 1);
-		}
-	}
-
-	swap_elements(&array[n + 1], &array[high]);
-	print_array(array, high - low + 1);
-	return (n + 1);
+// Lomuto partition scheme for Quick Sort
+int partition(int *array, int low, int high) {
+    // Choose the last element as the pivot
+    int pivot = array[high];
+    
+    // Index of smaller element
+    int i = low - 1;
+    
+    // Traverse through the array
+    for (int j = low; j <= high - 1; j++) {
+        // If the current element is smaller than or equal to the pivot
+        if (array[j] <= pivot) {
+            // Swap array[i] and array[j]
+            i++;
+            swap(array, i, j);
+        }
+    }
+    
+    // Swap array[i+1] and array[high] to place the pivot in the correct position
+    swap(array, i + 1, high);
+    
+    // Return the partition index
+    return i + 1;
 }
 
-/**
- * sort_array - function implements Lomuto partition recursively
- * @array: pointer to the given array
- * @low: index of the first element
- * @high: index of the last element
- * Return: returns void
- */
-
-void sort_array(int *array, int low, int high)
-{
-	int pivot_idx;
-
-	if (low < high)
-	{
-		pivot_idx = get_pivot(array, low, high);
-		sort_array(array, low, pivot_idx -1);
-		sort_array(array, pivot_idx + 1, high);
-	}
+// Quick Sort function using Lomuto partition scheme
+void quick_sort(int *array, int low, int high) {
+    if (low < high) {
+        // Find the partition index
+        int pi = partition(array, low, high);
+        
+        // Recursively sort the sub-arrays
+        quick_sort(array, low, pi - 1);
+        quick_sort(array, pi + 1, high);
+    }
 }
 
-/**
- * quick_sort - function initializes the quick_sort algorithm
- * @size: size of the given array
- * Return: returns void
- */
-
-void quick_sort(int *array, size_t size)
-{
-	sort_array(array, 0, size - 1);
+// Wrapper function for quick_sort
+void sort_array(int *array, size_t size) {
+    quick_sort(array, 0, size - 1);
 }
+
+int main() {
+    // Example usage
+    int array[] = {12, 4, 5, 6, 7, 3, 1, 15};
+    size_t size = sizeof(array) / sizeof(array[0]);
+    
+    printf("Original array: ");
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    
+    // Call the sorting function
+    sort_array(array, size);
+    
+    printf("\nSorted array: ");
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    
+    return 0;
+}
+
