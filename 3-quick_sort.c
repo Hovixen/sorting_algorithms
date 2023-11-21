@@ -44,11 +44,11 @@ int pertition(int *array, ssize_t first, ssize_t last, size_t size)
 			curr++;
 		}
 	}
-/*	if (array[curr] != array[last])*/
-/*	{*/
+	if (array[curr] != array[last])
+	{
 		swap_elements(array, curr, last);
 		print_array(array, size);
-/*	}*/
+	}
 	return (curr);
 }
 
