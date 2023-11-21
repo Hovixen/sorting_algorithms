@@ -81,8 +81,8 @@ void quickSort(int *array, ssize_t first, ssize_t last, size_t size)
 
 void quick_sort(int *array, size_t size)
 {
-/*	if (array == NULL || size < 2)*/
-/*		return;*/
+	if (array == NULL || size < 2)
+		return;
 	quickSort(array, 0, size - 1, size);
 }
 
