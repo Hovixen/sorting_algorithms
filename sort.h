@@ -31,6 +31,7 @@ void quick_sort(int *array, size_t size);
 void shell_sort(int *array, size_t size);
 void counting_sort(int *array, size_t size);
 void merge_sort(int *array, size_t size);
+void heap_sort(int *array, size_t size);
 
 /*----helper swaps functions-----*/
 void swap_nodes(listint_t **list, listint_t *n1, listint_t *n2);
@@ -43,5 +44,7 @@ void initialize_zero(int *arr, int n);
 void mergeSort(int *arr, int *temp, int start, int end);
 void merge(int *arr, int *temp, int start, int mid, int end);
 void *_calloc(unsigned int num, unsigned int size);
+void heapSwap(int *arr, int item1, int item2);
+void max_heapify(int *arr, size_t size, int idx, size_t n);
 
 #endif
