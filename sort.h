@@ -22,6 +22,7 @@ typedef struct listint_s
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 listint_t *create_listint(const int *array, size_t size);
+listint_t *swap_node(listint_t *node, listint_t **list);
 
 /*----sorting functions----*/
 void bubble_sort(int *array, size_t size);
@@ -35,7 +36,7 @@ void heap_sort(int *array, size_t size);
 void radix_sort(int *array, size_t size);
 void bitonic_sort(int *array, size_t size);
 void quick_sort_hoare(int *array, size_t size);
-void cocktail_sort_list(listint_t **list)
+void cocktail_sort_list(listint_t **list);
 
 /*----helper swaps functions-----*/
 void swap_nodes(listint_t **list, listint_t *n1, listint_t *n2);
@@ -58,6 +59,5 @@ void bitonicsort(int arr[], int low, int nelemnt, int order, int size);
 void swap_qs(int *array, ssize_t item1, ssize_t item2);
 int hoare_partition(int *array, int first, int last, int size);
 void qs(int *array, ssize_t first, ssize_t last, int size);
-listint_t *swap_node(listint_t *node, listint_t **list);
 
 #endif
